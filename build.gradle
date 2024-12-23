@@ -1,0 +1,44 @@
+plugins {
+    id 'scala'
+    id 'idea'
+    id 'application'
+}
+
+application {
+    mainClass.set('supermario.game')
+}
+
+ext {
+    scalaMajorVersion = '2.13'
+    scalaVersion = "${scalaMajorVersion}.14"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.13.12'
+    implementation 'org.processing:core:3.3.7'
+    implementation 'net.compartmental.code:minim:2.2.2'
+}
+
+//dependencies {
+//    implementation 'org.processing:core:3.5.4' // Update to the latest version
+//}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+sourceSets.main.scala.srcDirs = ['src']
+//sourceSets.test.scala.srcDirs = ['test']
