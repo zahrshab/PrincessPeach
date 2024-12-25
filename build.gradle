@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set('supermario.game')
+    mainClass.set('princesspeach.game')
 }
 
 ext {
