@@ -174,20 +174,50 @@ class game extends PApplet{
     text("Press enter to start again", 300, 370)
   }
 
+  var opacity = 0
+  var fadeDirection = 1 // 1 voor oplichten, -1 voor dimmen
+  var caretVisible = true
+  var lastBlinkTime = 0L
+  val blinkInterval = 500 // Tijd in milliseconden voor het knipperen
+
   private def drawNameInputBox(): Unit = {
-    stroke(0);
+    stroke(0)
+
+    // Tekstvak
     if (isActive) fill(200)
     else fill(255)
-    rect(boxX, boxY, boxWidth, boxHeight);
+    rect(boxX, boxY, boxWidth, boxHeight)
 
-    fill(0);
-    textSize(16);
-    text(inputText, boxX + 15, boxY + 22);
-    if(!isActive){
-      fill(0)
+    fill(0)
+    textSize(16)
+    text(inputText, boxX + 15, boxY + 22)
+
+    if (!isActive) {
+      fill(0, 0, 0, opacity)
       text("Enter your name here", boxX + 15, boxY + 22)
+
+      // opacity animation
+      opacity += fadeDirection * 5 // speed of fading
+      if (opacity >= 255 || opacity <= 0) {
+        fadeDirection *= -1 // change direction negative/positive
+      }
+    } else { //active, caret
+      val currentTime = millis() // current time
+      if (currentTime - lastBlinkTime > blinkInterval) {
+        caretVisible = !caretVisible
+        lastBlinkTime = currentTime
+      }
+
+      if (caretVisible) {
+        val textWidthSoFar = textWidth(inputText)
+        val caretX = boxX + 15 + textWidthSoFar
+
+        val caretY = boxY + 6
+        line(caretX, caretY, caretX, caretY + 16)
+      }
     }
   }
+
 
   private def loadResources(): Unit = {
     val basePath = sketchPath("lib/src/main/resources")
@@ -263,6 +293,6 @@ class game extends PApplet{
 
 object game {
   def main(args: Array[String]): Unit = {
-    PApplet.main("supermario.game")
+    PApplet.main("princesspeach.game")
   }
 }
