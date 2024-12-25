@@ -13,7 +13,7 @@ case class princessPeach(oldPosition: Point, position : Point, jump : Boolean, f
   def walk(): princessPeach = copy(walking = true, idle = false)
 
   def initialFall(newMaxVelocity: Int) : princessPeach = {
-    copy(velocityY = 0, maxVelocityY =  newMaxVelocity, jump = false, fallingDown = true, idle = false, walking = false) //eventually wil je en kunnen vallen en kunnen lopen maar als ik nu die false weghaal wordt het raar
+    copy(velocityY = 0, maxVelocityY =  newMaxVelocity, jump = false, fallingDown = true, idle = false) //eventually wil je en kunnen vallen en kunnen lopen maar als ik nu die false weghaal wordt het raar
   }
 
   def jumpOrFall(newPositionY : Int, newVelocity : Int) : princessPeach = {
